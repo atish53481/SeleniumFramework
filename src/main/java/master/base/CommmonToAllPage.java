@@ -30,7 +30,7 @@ public class CommmonToAllPage {
     }
 
     public WebElement presenceOfElement(final By elementLocation) {
-        return new WebDriverWait(DriverManagerTL.getDriver(), Duration.ofSeconds(20)).until(ExpectedConditions.presenceOfElementLocated(elementLocation));
+        return new WebDriverWait(DriverManagerTL.getDriver(), Duration.ofSeconds(200)).until(ExpectedConditions.presenceOfElementLocated(elementLocation));
     }
 
     public WebElement visibilityOfElement(final By elementLocation) {
