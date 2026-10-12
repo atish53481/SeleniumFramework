@@ -21,6 +21,7 @@ public class LoginPage_POM extends CommmonToAllPage {
     // Page Actions
 
     public LoginPage_POM loginToVWOPositive() throws Exception {
+        visibilityOfElement(username);
         enterInput(username, PropertyReader.readKey("username"));
         enterInput(password,PropertyReader.readKey("password"));
         clickElement(signButton);
@@ -35,6 +36,7 @@ public class LoginPage_POM extends CommmonToAllPage {
     }
 
     public String loginToVWONegative() throws Exception {
+        visibilityOfElement(username);
         enterInput(username, "admin");
         enterInput(password,PropertyReader.readKey("password"));
         clickElement(signButton);
