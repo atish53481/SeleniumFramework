@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -66,9 +67,19 @@ public class DriverManagerTL {
         }});*/
 
         FirefoxOptions options = new FirefoxOptions();
+        // -Dheadless=true for CI agents with no desktop (e.g. Jenkins running as a service)
+        if (Boolean.getBoolean("headless")) {
+            options.addArguments("-headless");
+        }
 
-
-        RemoteWebDriver driver = new RemoteWebDriver(new URL("http://selenium:4444/wd/hub"), options);
+        // -Dgrid.url=http://selenium:4444/wd/hub runs on Grid, otherwise local browser
+        String gridUrl = System.getProperty("grid.url");
+        WebDriver driver;
+        if (gridUrl == null || gridUrl.isBlank()) {
+            driver = new FirefoxDriver(options);
+        } else {
+            driver = new RemoteWebDriver(new URL(gridUrl), options);
+        }
         setDriver(driver);
 
     }
