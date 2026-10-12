@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 
 public class CommontoAllTest {
@@ -19,8 +20,8 @@ public class CommontoAllTest {
     // grid.url comes from the suite xml (testng-selenoid.xml); empty means local browser
     @Parameters("grid.url")
     @BeforeMethod
-    protected  void setup(@Optional("") String gridUrl) throws MalformedURLException {
-        DriverManagerTL.init(gridUrl);
+    protected  void setup(@Optional("") String gridUrl, Method method) throws MalformedURLException {
+        DriverManagerTL.init(gridUrl, method.getName());
     }
 
     @AfterMethod

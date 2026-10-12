@@ -38,7 +38,7 @@ public class DriverManagerTL {
         }
     }
 
-    public static void init(String suiteGridUrl) throws MalformedURLException {
+    public static void init(String suiteGridUrl, String testName) throws MalformedURLException {
      /*   ChromeOptions options = new ChromeOptions();
         options.setCapability("browserVersion", "128.0");
         options.setCapability("selenoid:options", new HashMap<String, Object>() {{
@@ -68,7 +68,7 @@ public class DriverManagerTL {
         if (gridUrl == null || gridUrl.isBlank()) {
             driver = LocalDriverManager.createDriver();
         } else {
-            driver = SelenoidDriverManager.createDriver(gridUrl);
+            driver = SelenoidDriverManager.createDriver(gridUrl, testName);
         }
         setDriver(driver);
 
