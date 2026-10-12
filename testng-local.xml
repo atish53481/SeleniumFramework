@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!-- Runs on Firefox installed on this machine (LocalDriverManager) -->
+<suite name="Local Suite">
+    <test verbose="2" preserve-order="true" parallel="methods" name="SeleniumAdvanceFramework-Local">
+        <classes>
+            <class name="master.vwo.Logintests.LoginTest"/>
+        </classes>
+    </test>
+</suite>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!-- Runs on Firefox inside a Selenoid container (SelenoidDriverManager) -->
+<suite name="Selenoid Suite">
+    <parameter name="grid.url" value="http://localhost:4444/wd/hub"/>
+    <test verbose="2" preserve-order="true" parallel="methods" name="SeleniumAdvanceFramework-Selenoid">
+        <classes>
+            <class name="master.vwo.Logintests.LoginTest"/>
+        </classes>
+    </test>
+</suite>

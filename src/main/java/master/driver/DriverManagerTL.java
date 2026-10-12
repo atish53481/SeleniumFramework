@@ -4,12 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
@@ -42,7 +38,7 @@ public class DriverManagerTL {
         }
     }
 
-    public static void init() throws MalformedURLException {
+    public static void init(String suiteGridUrl) throws MalformedURLException {
      /*   ChromeOptions options = new ChromeOptions();
         options.setCapability("browserVersion", "128.0");
         options.setCapability("selenoid:options", new HashMap<String, Object>() {{
@@ -66,23 +62,13 @@ public class DriverManagerTL {
             put("enableVideo", true);
         }});*/
 
-        FirefoxOptions options = new FirefoxOptions();
-        // -Dheadless=true for CI agents with no desktop (e.g. Jenkins running as a service)
-        if (Boolean.getBoolean("headless")) {
-            options.addArguments("-headless");
-        }
-
-        // -Dgrid.url=http://selenium:4444/wd/hub runs on Grid, otherwise local browser
-        String gridUrl = System.getProperty("grid.url");
+        // Grid URL set (suite xml, or -Dgrid.url which wins) runs on Selenoid, otherwise local browser
+        String gridUrl = System.getProperty("grid.url", suiteGridUrl);
         WebDriver driver;
         if (gridUrl == null || gridUrl.isBlank()) {
-            driver = new FirefoxDriver(options);
+            driver = LocalDriverManager.createDriver();
         } else {
-            // Lets Selenoid UI show the live browser screen for this session
-            HashMap<String, Object> selenoidOptions = new HashMap<>();
-            selenoidOptions.put("enableVNC", true);
-            options.setCapability("selenoid:options", selenoidOptions);
-            driver = new RemoteWebDriver(new URL(gridUrl), options);
+            driver = SelenoidDriverManager.createDriver(gridUrl);
         }
         setDriver(driver);
 
