@@ -78,6 +78,10 @@ public class DriverManagerTL {
         if (gridUrl == null || gridUrl.isBlank()) {
             driver = new FirefoxDriver(options);
         } else {
+            // Lets Selenoid UI show the live browser screen for this session
+            HashMap<String, Object> selenoidOptions = new HashMap<>();
+            selenoidOptions.put("enableVNC", true);
+            options.setCapability("selenoid:options", selenoidOptions);
             driver = new RemoteWebDriver(new URL(gridUrl), options);
         }
         setDriver(driver);
